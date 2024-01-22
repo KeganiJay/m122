@@ -32,6 +32,7 @@ while true; do
             echo "@reboot root apt update && apt upgrade -y" | sudo tee -a /etc/crontab > /dev/null
             ;;
         2)
+            sudo ufw enable
             sudo ufw status
             read -p "Geben Sie die Regelnummer ein, die gelöscht werden soll (0 für nichts): " rule_number
             if [ "$rule_number" -gt 0 ]; then
