@@ -40,6 +40,7 @@ while true; do
             ;;
         3)
             echo -e "${GREEN}Netzwerkkonfiguration:${NC}"
+            sudo apt install net-tools
             ifconfig
             if ping -c 4 8.8.8.8 &> /dev/null; then
                 echo -e "${GREEN}Erfolgreich: Verbindung zu 8.8.8.8 hergestellt.${NC}"
