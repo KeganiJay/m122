@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Farbe für die Fehlermeldungen
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
