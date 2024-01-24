@@ -2,15 +2,34 @@
 # Farbe für die Fehlermeldungen
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
+# slash dreht um das Skript auszusehen lassen
+rotateCursor() {
+s="-,\\,|,/"
+    for i in `seq 1 $1`; do
+        for i in ${s//,/ }; do
+            echo -n $i
+            sleep 0.1
+            echo -ne '\b'
+        done
+    done
+}
 
+# Single loop, kann man ohne Zahl eingeben
+rotateCursor
+
+# mehrere loops
+rotateCursor 10
+
+# Datenschutz anehmen
 echo -e "${GREEN}Willkommen! Bitte akzeptieren Sie die Datenschutzvereinbarung.${NC}"
 read -p "1 für Zustimmen, 2 für Ablehnen: " choice
 
+# Wenn der Benutzer 2 wählt, wird das Skript beendet
 if [ "$choice" != "1" ]; then
     echo "Datenschutzvereinbarung abgelehnt. Das Skript wird beendet."
     exit 1
 fi
-
+# While true schleife um mehrere Optionen darzustellen
 while true; do
     clear
     echo -e "${GREEN}Optionen:${NC}"
@@ -18,10 +37,11 @@ while true; do
     echo "2- Sicherheit überprüfen (UFW Regeln)"
     echo "3- Netzwerkstatus überprüfen"
     echo "4- Benutzer und Berechtigungen überprüfen"
+    echo "5- calm av antivirus installieren"
     echo "q- Skript beenden"
     
     read -p "Wählen Sie eine Option: " option
-    
+    # Optionen von 1 bis 5 mit Befehle aufgelistet
     case "$option" in
         1)
             sudo apt update
@@ -32,8 +52,8 @@ while true; do
             echo "@reboot root apt update && apt upgrade -y" | sudo tee -a /etc/crontab > /dev/null
             ;;
         2)
-            sudo ufw enable
-            sudo ufw status
+sudo ufw enable            
+sudo ufw status
             read -p "Geben Sie die Regelnummer ein, die gelöscht werden soll (0 für nichts): " rule_number
             if [ "$rule_number" -gt 0 ]; then
                 sudo ufw delete $rule_number
@@ -41,8 +61,8 @@ while true; do
             ;;
         3)
             echo -e "${GREEN}Netzwerkkonfiguration:${NC}"
-            sudo apt install net-tools
-            ifconfig
+sudo apt install net-tools            
+ifconfig
             if ping -c 4 8.8.8.8 &> /dev/null; then
                 echo -e "${GREEN}Erfolgreich: Verbindung zu 8.8.8.8 hergestellt.${NC}"
             else
@@ -80,6 +100,27 @@ while true; do
                 esac
             fi
             ;;
+            
+         5)
+            
+            echo " ok, clamav wird auf diesem system installiert."
+            
+ 
+
+           apt -y install clamav
+           apt install -y clamav-daemon
+           systemctl status clamav-freshclam
+           systemctl start clamav-freshclam
+           reset
+           
+       echo " perfect, alles ist erfolgreich installiert."    
+           
+            ;;
+            
+            
+            
+            
+            
         q)
             echo -e "${GREEN}Skript wird beendet.${NC}"
             exit 0
