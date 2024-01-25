@@ -2,7 +2,7 @@
 # Farbe für die Fehlermeldungen
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
-# slash dreht um das Skript auszusehen lassen
+# slash dreht um das Skript gut aussehen zu lassen
 rotateCursor() {
 s="-,\\,|,/"
     for i in `seq 1 $1`; do
