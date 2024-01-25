@@ -61,7 +61,7 @@ sudo ufw status
             ;;
         3)
             echo -e "${GREEN}Netzwerkkonfiguration:${NC}"
-#installiert ein networking toolkit
+# installiert ein networking toolkit
 sudo apt install net-tools            
 ifconfig
             if ping -c 4 8.8.8.8 &> /dev/null; then
@@ -107,7 +107,7 @@ ifconfig
             echo " ok, clamav wird auf diesem system installiert."
             
  
-#installiert einen open-source antivirus
+# installiert einen open-source antivirus
            apt -y install clamav
            apt install -y clamav-daemon
            systemctl status clamav-freshclam
